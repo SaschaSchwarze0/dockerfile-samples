@@ -1,0 +1,14 @@
+FROM ubuntu
+
+RUN \
+  apt update && \
+  apt upgrade -y && \
+  apt install -y curl && \
+  curl https://nodejs.org/dist/v12.19.0/node-v12.19.0-linux-x64.tar.gz -o /tmp/nodejs.tar.gz && \
+  mkdir /opt/node && \
+  tar -xzf /tmp/nodejs.tar.gz -C /opt/node --strip 1 && \
+  rm /tmp/nodejs.tar.gz && \
+  apt remove -y curl && \
+  apt auto-remove -y && \
+  apt clean && \
+  rm -rf /var/lib/apt/lists/*

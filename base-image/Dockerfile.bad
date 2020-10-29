@@ -1,0 +1,13 @@
+FROM ubuntu
+
+RUN \
+  apt update && \
+  apt upgrade -y && \
+  apt install -y nodejs && \
+  apt clean && \
+  rm -rf /var/lib/apt/lists/*
+
+ADD program.js /workspace/program.js
+
+WORKDIR /workspace
+ENTRYPOINT [ "node", "program.js" ]

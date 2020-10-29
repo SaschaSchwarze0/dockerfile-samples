@@ -1,0 +1,6 @@
+FROM node:12-alpine
+
+ADD program.js /workspace/program.js
+
+WORKDIR /workspace
+ENTRYPOINT [ "node", "program.js" ]

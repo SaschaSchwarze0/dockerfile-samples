@@ -1,0 +1,14 @@
+FROM maven:3-jdk-11-openj9 AS builder
+
+WORKDIR /app
+COPY . /app
+
+RUN mvn package
+
+FROM adoptopenjdk:11-jre-openj9
+
+WORKDIR /app
+COPY --from=builder /app/target/java-simple-1.0-SNAPSHOT-fat.jar /app/java-simple.jar
+
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/app/java-simple.jar"]

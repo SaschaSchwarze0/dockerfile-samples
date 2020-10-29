@@ -1,0 +1,17 @@
+FROM node:12-alpine AS builder
+
+ADD . /app
+WORKDIR /app
+RUN npm install && npm run build
+
+FROM node:12-alpine
+
+RUN npm install -g serve && \
+  addgroup nonroot --gid 1100 && \
+  adduser nonroot --ingroup nonroot --uid 1100 --home /home/nonroot --disabled-password
+
+COPY --from=builder /app/build /app
+
+USER 1100:1100
+EXPOSE 8080
+ENTRYPOINT [ "serve", "-l", "8080", "/app" ]

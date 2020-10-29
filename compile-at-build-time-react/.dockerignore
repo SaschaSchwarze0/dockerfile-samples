@@ -1,0 +1,6 @@
+.gitignore
+build
+build.sh
+Dockerfile.bad
+Dockerfile.good
+node_modules
